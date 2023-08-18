@@ -115,7 +115,8 @@ def write_impact(particle_group,
                 outfile,
                 cathode_kinetic_energy_ref=None,
                 include_header=True,
-                verbose=False):
+                verbose=False,
+                dev_branch=False):
     """
     Writes Impact-T style particles from particle_group type data.
     
@@ -126,6 +127,8 @@ def write_impact(particle_group,
     If cathode_kinetic_energy_ref is given, t will be used to compute z for cathode emission.
     
     If include_header, the number of particles will be written as the first line. Default is True. 
+    
+    If dev_branch, include macroparticle charge/mass, charge/macroparticle, and global id. Default is False.
     
     Otherwise, particles must have the same time, and should be started in free space.
     
@@ -211,14 +214,27 @@ def write_impact(particle_group,
         vprint(f'Normal start with at time {t} s')
     
     # Form data table
-    dat = np.array([
-        particle_group['x'],
-        particle_group['px']/mc2,
-        particle_group['y'],
-        particle_group['py']/mc2,
-        z,
-        gamma_beta_z
-    ])
+    if dev_branch:
+        dat = np.array([
+            particle_group['x'],
+            particle_group['px']/mc2,
+            particle_group['y'],
+            particle_group['py']/mc2,
+            z,
+            gamma_beta_z,
+            -1/mc2*np.ones(n_particle),
+            pg['weight'],
+            pg['id']
+        ])
+    else:
+        dat = np.array([
+            particle_group['x'],
+            particle_group['px']/mc2,
+            particle_group['y'],
+            particle_group['py']/mc2,
+            z,
+            gamma_beta_z
+        ])
     
     # Save to ASCII
     if include_header:
