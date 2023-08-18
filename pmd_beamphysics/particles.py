@@ -783,9 +783,9 @@ class ParticleGroup:
     def write_gpt(self, filePath, asci2gdf_bin=None, verbose=False):
         write_gpt(self, filePath, asci2gdf_bin=asci2gdf_bin, verbose=verbose)    
     
-    def write_impact(self, filePath, cathode_kinetic_energy_ref=None, include_header=True, verbose=False):
+    def write_impact(self, filePath, cathode_kinetic_energy_ref=None, include_header=True, verbose=False,dev_branch=False):
         return write_impact(self, filePath, cathode_kinetic_energy_ref=cathode_kinetic_energy_ref,
-                            include_header=include_header, verbose=verbose)          
+                            include_header=include_header, verbose=verbose,dev_branch=dev_branch)          
         
     def write_litrack(self, filePath, p0c=None, verbose=False):        
         return write_litrack(self, outfile=filePath, p0c=p0c, verbose=verbose)      
