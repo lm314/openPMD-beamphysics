@@ -223,8 +223,8 @@ def write_impact(particle_group,
             z,
             gamma_beta_z,
             -1/mc2*np.ones(n_particle),
-            pg['weight'],
-            pg['id']
+            particle_group['weight'],
+            particle_group['id']
         ])
     else:
         dat = np.array([
